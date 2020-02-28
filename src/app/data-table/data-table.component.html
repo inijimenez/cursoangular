@@ -1,0 +1,68 @@
+<div class="container" style="align-content: center;">
+    <form *ngIf="!isLoading" (ngSubmit)="submit()" #datatableForm="ngForm" [appMustMatch]="['email', 'confirmationEmail']">
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input #nombre="ngModel" type="text" required class="form-control" [(ngModel)]="user.name"
+                id="nombre" name="nombre" placeholder="Nombre" minlength="3" maxlength="25">
+            <small *ngIf="nombre.errors && nombre.errors.required"
+                id="nombreHelpReq" class="form-text text-muted alert alert-danger">¡Nombre obligatorio!</small>
+            <small *ngIf="nombre.errors && !nombre.errors.required && nombre.errors.minlength"
+                id="nombreHelpMinLeng" class="form-text text-muted alert alert-danger">¡El nombre requiere al menos tres letras!</small>
+            <small *ngIf="nombre.errors && !nombre.errors.required && nombre.errors.maxlength"
+                id="nombreHelpMaxLeng" class="form-text text-muted alert alert-danger">¡El nombre requiere como mucho veinticinco letras!</small>
+        </div>
+        <div class="form-group">
+            <label for="apellidos">Apellidos</label>
+            <input #apellidos="ngModel" type="text" required class="form-control" [(ngModel)]="user.surnames"
+                id="apellidos" name="apellidos" placeholder="Apellidos" minlength="3" maxlength="25">
+            <small [hidden]="apellidos.valid" id="apellidosHelpReq" class="form-text text-muted alert alert-danger">¡Apellidos obligatorios!</small>
+            <small *ngIf="apellidos.errors && !apellidos.errors.required && apellidos.errors.minlength"
+                id="apellidosHelpMinLeng" class="form-text text-muted alert alert-danger">¡Los apellidos requieren al menos tres letras!</small>
+            <small *ngIf="apellidos.errors && !apellidos.errors.required && apellidos.errors.maxlength"
+                id="apellidosHelpMaxLeng" class="form-text text-muted alert alert-danger">¡Los apellidos requieren como mucho veinticinco letras!</small>
+        </div>
+        <div class="form-group">
+            <label for="dni">DNI</label>
+            <input #dni="ngModel" type="text" required pattern="^\d{8}[A-z]$" class="form-control" [(ngModel)]="user.dni"
+                id="dni" name="dni" placeholder="DNI">
+            <small *ngIf="dni.invalid && dni.errors.required"
+                id="dniHelpReq" class="form-text text-muted alert alert-danger">¡DNI obligatorio!</small>
+            <small *ngIf="dni.invalid && !dni.errors.required && dni.errors.pattern"
+                id="dniHelpPattern" class="form-text text-muted alert alert-danger">¡DNI no válido!</small>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input #email="ngModel" type="text" required email class="form-control" [(ngModel)]="user.email"
+                id="email" name="email" placeholder="Email">
+            <small *ngIf="email.invalid && !email.errors.email" id="emailHelpRequired"
+                class="form-text text-muted alert alert-danger">¡Email obligatorio!</small>
+            <small *ngIf="email.errors && email.errors.email" id="emailHelpFormat"
+                class="form-text text-muted alert alert-danger">¡Formato no válido!</small>
+
+            <label for="confirmationEmail">Confirmar Email</label>
+            <input #confirmationEmail="ngModel" type="text" required email class="form-control" [(ngModel)]="codeConfirmationEmail"
+                id="confirmationEmail" name="confirmationEmail" placeholder="Confirmar Email">
+            <small *ngIf="confirmationEmail.errors && confirmationEmail.errors.mustMatch" id="emailHelpMustMatch"
+                class="form-text text-muted alert alert-danger">¡Los Emails no coinciden!</small>
+        </div>
+        <!--
+        <div class="form-group">
+            <label for="edad">Edad</label>
+            <input #edad="ngModel" type="number" [appMinValue]="16" min="0" max="99" required class="form-control"
+                [(ngModel)]="user.edad" [ngModelOptions]="{updateOn: 'blur'}"
+                id="edad" name="edad" placeholder="Edad">
+            <small *ngIf="edad.invalid && edad.errors.required" id="edadHelp" class="form-text text-muted alert alert-danger">¡Edad obligatoria!</small>
+            <small *ngIf="edad.invalid && !edad.errors.required && edad.errors.minValue" id="edadHelp" class="form-text text-muted alert alert-danger">¡No puedes ser menor de edad!</small>
+        </div>-->
+
+        <button [disabled]="datatableForm.invalid" type="submit" class="btn btn-primary">Submit!</button>
+        <button (click)="datatableForm.resetForm()" type="button" class="btn btn-danger">Reset!</button>
+    </form>
+    <div *ngIf="isLoading">
+        CARGANDO
+    </div>
+    <br>
+    <div class="row" *ngFor="let user of users; let index = index">
+        <p>{{user.nombre}} {{user.apellidos}}: Edad {{user.edad}}, Email: {{user.email}}, DNI: {{user.dni}}</p>
+    </div>
+</div>

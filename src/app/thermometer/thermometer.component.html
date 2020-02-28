@@ -1,0 +1,34 @@
+<div class="container" style="align-content: center; margin-top: 3rem">
+    <div class="row" style="margin-bottom: 3rem;">
+        <div class="offset-4 col-3">
+            <label appHighlight>Celsius: {{celsius | exponential: 10}}</label>
+            <br>
+            <label>Kelvin: {{kelvin}}</label>
+            <br>
+            <label>Fahrenheit: {{fahrenheit}}</label>
+            <br>
+            <label>Newtons: {{newton}}</label>
+            <br>
+        </div>
+        <div class="col-3">
+            <img [src]="imgTemperatureSrc" width="160px">
+            <br>
+            <p>{{itsCold | prettyBool: ['Coge la rebequita', 'Agarra el bañador']}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p><ngb-progressbar type="success" [value]="celsius" [max]="100"></ngb-progressbar></p>
+            <p><ngb-progressbar type="info" [value]="kelvin" [max]="celsiusToKelvin(100)"></ngb-progressbar></p>
+            <p><ngb-progressbar type="warning" [value]="fahrenheit" [max]="celsiusToFahrenheit(100)"></ngb-progressbar></p>
+            <p><ngb-progressbar type="danger" [value]="newton" [max]="celsiusToNewton(100)"></ngb-progressbar></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <input type="number" [(ngModel)]="celsius" min="0" max="100" step="1"
+                (keyup)="calculateAllTemperatures()" (blur)="checkNullTemperature()">
+            <button type="button" class="btn btn-success" (click)="resetAll()">Reset!</button>
+        </div>
+    </div>
+</div>

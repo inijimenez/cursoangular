@@ -1,0 +1,21 @@
+<div style="text-align:center">
+    <div class="row" style="align-items: flex-end">
+      <div class="col-md-6">
+        <img src="../../assets/rock.png" 
+          width="400" (click)="playGame('piedra')">
+      </div>
+      <div class="col-md-6">
+        <img src="../../assets/paper.png" 
+          width="400" (click)="playGame('papel')">
+      </div>
+    </div>
+    <div class="row">
+      <div class="offset-3 col-md-6">
+        <img src="../../assets/scissors.png" 
+          width="400" (click)="playGame('tijeras')">
+      </div>
+    </div>
+    <div class="row" *ngFor="let partida of historialPartidas; let i = index">
+        <p [ngStyle]="{'background-color': partida.color}">{{i}} -- Máquina: {{partida.eleccionMaquina}} -- Jugador: {{partida.eleccionJugador}} -- Resultado: {{partida.resultado}}</p>
+    </div>
+</div>

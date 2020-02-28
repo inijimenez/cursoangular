@@ -6,5 +6,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'curso-febrero';
+  title = 'Curso Febrero';
+  variable = {
+    nombre: ''
+  };
+
+  changeName() {
+    this.variable.nombre = "Pepe";
+  }
+
+  sayHello(element: any) {
+    this.variable.nombre = element.value;
+    alert(`Hola ${this.variable.nombre}`);
+  }
 }
